@@ -169,12 +169,10 @@ TEST_F(ProgramOptionsTestGroup, CommandType) {
     ///
     programOptions.reset();
     options[2] = "non-existent";
-    try {
-        programOptions.Parse(options.size(), cmd(options).data());
-    }
-    catch(const std::runtime_error& e) {
-        ASSERT_STREQ("invalid command type", e.what());
-    }
+    ASSERT_THROW(
+        { programOptions.Parse(options.size(), cmd(options).data()); }, 
+        std::runtime_error
+    );
 }
 
 TEST_F(ProgramOptionsTestGroup, Command) {
