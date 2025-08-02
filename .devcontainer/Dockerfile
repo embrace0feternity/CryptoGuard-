@@ -19,8 +19,11 @@ USER dev
 RUN git config --global core.editor code
 
 # Install conan through pipx
-RUN pipx install conan
+RUN pipx install conan && \
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 RUN pipx ensurepath
+
+ENV PATH="/root/.local/bin:${PATH}"
 
 # Copy conan profile
 COPY default /home/dev/.conan2/profiles/default
