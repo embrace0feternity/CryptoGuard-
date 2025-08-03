@@ -12,6 +12,7 @@ public:
 
     enum class COMMAND_TYPE {
         INDEFINITE = 0,
+        HELP,
         ENCRYPT,
         DECRYPT,
         CHECKSUM

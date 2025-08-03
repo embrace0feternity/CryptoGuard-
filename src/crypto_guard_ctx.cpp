@@ -51,7 +51,6 @@ class CryptoGuardCtx::Impl {
 
     void DoCrypt(std::iostream &inStream, std::iostream &outStream, std::string_view password, int direction) {
         std::string input((std::istreambuf_iterator<char>(inStream)), std::istreambuf_iterator<char>());
-
         auto params = CreateChiperParamsFromPassword(password);
         params.encrypt = direction;
 

@@ -45,7 +45,7 @@ TEST_F(ProgramOptionsTestGroup, Help) {
     ASSERT_TRUE(programOptions.GetInputFile().empty());
     ASSERT_TRUE(programOptions.GetOutputFile().empty());
     ASSERT_TRUE(programOptions.GetPassword().empty());
-    ASSERT_EQ(CryptoGuard::ProgramOptions::COMMAND_TYPE::INDEFINITE, programOptions.GetCommand());
+    ASSERT_EQ(CryptoGuard::ProgramOptions::COMMAND_TYPE::HELP, programOptions.GetCommand());
 }
 
 TEST_F(ProgramOptionsTestGroup, Input) {

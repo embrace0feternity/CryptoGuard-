@@ -1,6 +1,5 @@
 #include "cmd_options.h"
 #include <iostream>
-#include <print>
 
 namespace CryptoGuard {
 
@@ -28,27 +27,29 @@ void ProgramOptions::Parse(int argc, char *argv[]) {
     notify(vm);
 
     if (vm.count("help")) {
-        std::cout << desc_ << "\n";
+        command_ = COMMAND_TYPE::HELP;
+        std::cout << desc_ << std::endl;
     }
-
-    if (vm.count("command")) {
-        auto it = commandMapping_.find(vm["command"].as<std::string>());
-        if (it == commandMapping_.end()) {
-            throw std::runtime_error("invalid command type");
+    else {
+        if (vm.count("command")) {
+            auto it = commandMapping_.find(vm["command"].as<std::string>());
+            if (it == commandMapping_.end()) {
+                throw std::runtime_error("Error: invalid command type");
+            }
+            command_ = commandMapping_.at(vm["command"].as<std::string>());
         }
-        command_ = commandMapping_.at(vm["command"].as<std::string>());
-    }
 
-    if (vm.count("input")) {
-        inputFile_ = vm["input"].as<std::string>();
-    }
+        if (vm.count("input")) {
+            inputFile_ = vm["input"].as<std::string>();
+        }
 
-    if (vm.count("output")) {
-        outputFile_ = vm["output"].as<std::string>();
-    }
+        if (vm.count("output")) {
+            outputFile_ = vm["output"].as<std::string>();
+        }
 
-    if (vm.count("password")) {
-        password_ = vm["password"].as<std::string>();
+        if (vm.count("password")) {
+            password_ = vm["password"].as<std::string>();
+        }
     }
 }
 }  // namespace CryptoGuard

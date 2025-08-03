@@ -10,7 +10,7 @@ protected:
 };
 
 TEST_F(CtxTestGroup, EncryptDecrypt) {
-    std::string data = "secret data";
+    std::string data = "\"Hello OpenSSL crypto world!\"";
     std::stringstream in (data);
     std::stringstream encrypted;
     std::stringstream decrypted;
@@ -22,7 +22,6 @@ TEST_F(CtxTestGroup, EncryptDecrypt) {
 
     ASSERT_NO_THROW({ ctx.DecryptFile(encrypted, decrypted, password); });
     std::string decryptedData = decrypted.str();
-    std::cout << "decrypted " << decryptedData << std::endl;
     ASSERT_EQ(data, decryptedData);
 }
 
@@ -128,12 +127,24 @@ TEST_F(CtxTestGroup, DecryptChoppedData) {
 ///
 
 TEST_F(CtxTestGroup, Checksum) {
-    std::string data = "data";
+    std::string data = "ddokposdkfgp[asf[,fgbrnmi123wogfdbgp]]";
     std::stringstream in (data);
+    std::stringstream encrypted;
+    std::stringstream decrypted;
+    std::string password = "gohpfoghpslf";
 
-    ASSERT_NO_THROW({ ctx.CalculateChecksum(in); });
-    auto cs = ctx.CalculateChecksum(in);
-    ASSERT_TRUE(cs.size() > 0);
+    ASSERT_NO_THROW({ ctx.EncryptFile(in, encrypted, password); });
+    std::string encryptedData = encrypted.str();
+    ASSERT_TRUE(encryptedData.size() > 0);
+
+    ASSERT_NO_THROW({ ctx.DecryptFile(encrypted, decrypted, password); });
+    std::string decryptedData = decrypted.str();
+    ASSERT_EQ(data, decryptedData);
+
+    auto decryptedCS = ctx.CalculateChecksum(decrypted);
+    std::stringstream test (data);
+    auto inCS = ctx.CalculateChecksum(test);
+    ASSERT_EQ(decryptedCS, inCS);
 }
 
 TEST_F(CtxTestGroup, ChecksumDifferentInputs) {
