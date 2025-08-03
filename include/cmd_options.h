@@ -10,13 +10,7 @@ class ProgramOptions {
 public:
     ProgramOptions();
 
-    enum class COMMAND_TYPE {
-        INDEFINITE = 0,
-        HELP,
-        ENCRYPT,
-        DECRYPT,
-        CHECKSUM
-    };
+    enum class COMMAND_TYPE { INDEFINITE = 0, HELP, ENCRYPT, DECRYPT, CHECKSUM };
 
     void Parse(int argc, char *argv[]);
 

@@ -35,7 +35,7 @@ TEST_F(ProgramOptionsTestGroup, Help) {
     auto t = cmd(options);
     programOptions.Parse(options.size(), t.data());
     std::cout.rdbuf(interceptedBuf);
-    
+
     auto interceptedData = ss.str();
     ASSERT_TRUE(interceptedData.find("--input") != std::string::npos);
     ASSERT_TRUE(interceptedData.find("--output") != std::string::npos);
@@ -169,10 +169,7 @@ TEST_F(ProgramOptionsTestGroup, CommandType) {
     ///
     programOptions.reset();
     options[2] = "non-existent";
-    ASSERT_THROW(
-        { programOptions.Parse(options.size(), cmd(options).data()); }, 
-        std::runtime_error
-    );
+    ASSERT_THROW({ programOptions.Parse(options.size(), cmd(options).data()); }, std::runtime_error);
 }
 
 TEST_F(ProgramOptionsTestGroup, Command) {
@@ -195,7 +192,7 @@ TEST_F(ProgramOptionsTestGroup, Command) {
     options.back() = "encrypt";
 
     programOptions.Parse(options.size(), cmd(options).data());
-        ASSERT_EQ(CryptoGuard::ProgramOptions::COMMAND_TYPE::ENCRYPT, programOptions.GetCommand());
+    ASSERT_EQ(CryptoGuard::ProgramOptions::COMMAND_TYPE::ENCRYPT, programOptions.GetCommand());
     ASSERT_EQ(file_2, programOptions.GetInputFile());
     ASSERT_EQ(file_1, programOptions.GetOutputFile());
     ASSERT_EQ("7294", programOptions.GetPassword());

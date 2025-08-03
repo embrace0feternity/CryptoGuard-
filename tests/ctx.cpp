@@ -11,7 +11,7 @@ protected:
 
 TEST_F(CtxTestGroup, EncryptDecrypt) {
     std::string data = "\"Hello OpenSSL crypto world!\"";
-    std::stringstream in (data);
+    std::stringstream in(data);
     std::stringstream encrypted;
     std::stringstream decrypted;
     std::string password = "gohpfoghpslf";
@@ -27,7 +27,7 @@ TEST_F(CtxTestGroup, EncryptDecrypt) {
 
 TEST_F(CtxTestGroup, EncryptEmpty) {
     std::string data = "";
-    std::stringstream in (data);
+    std::stringstream in(data);
     std::stringstream encrypted;
     std::stringstream decrypted;
     std::string password = "";
@@ -43,7 +43,7 @@ TEST_F(CtxTestGroup, EncryptEmpty) {
 
 TEST_F(CtxTestGroup, EncryptDifferentPassword) {
     std::string data = "secret data";
-    std::stringstream in (data);
+    std::stringstream in(data);
     std::stringstream encrypted;
     std::stringstream decrypted;
 
@@ -63,7 +63,7 @@ TEST_F(CtxTestGroup, EncryptDifferentPassword) {
 
 TEST_F(CtxTestGroup, DecryptCorruptedPassword) {
     std::string data = "mkfedp  pfdg543gdh   4       [;ewrfdssombmg fdsdsff7r5gefhv3]";
-    std::stringstream in (data);
+    std::stringstream in(data);
     std::stringstream encrypted;
     std::stringstream decrypted;
     std::string password = "qwer";
@@ -79,8 +79,8 @@ TEST_F(CtxTestGroup, DecryptCorruptedPassword) {
 }
 
 TEST_F(CtxTestGroup, DecryptCorruptedData) {
-    std::string data (100'000, 'Q');
-    std::stringstream in (data);
+    std::string data(100'000, 'Q');
+    std::stringstream in(data);
     std::stringstream encrypted;
     std::stringstream decrypted;
     std::string password = "qwer";
@@ -103,7 +103,7 @@ TEST_F(CtxTestGroup, DecryptCorruptedData) {
 
 TEST_F(CtxTestGroup, DecryptChoppedData) {
     std::string data = "ofdg hbkgfh od54om  fds10";
-    std::stringstream in (data);
+    std::stringstream in(data);
     std::stringstream encrypted;
     std::stringstream decrypted;
     std::string password = "qwer";
@@ -128,7 +128,7 @@ TEST_F(CtxTestGroup, DecryptChoppedData) {
 
 TEST_F(CtxTestGroup, Checksum) {
     std::string data = "ddokposdkfgp[asf[,fgbrnmi123wogfdbgp]]";
-    std::stringstream in (data);
+    std::stringstream in(data);
     std::stringstream encrypted;
     std::stringstream decrypted;
     std::string password = "gohpfoghpslf";
@@ -142,14 +142,14 @@ TEST_F(CtxTestGroup, Checksum) {
     ASSERT_EQ(data, decryptedData);
 
     auto decryptedCS = ctx.CalculateChecksum(decrypted);
-    std::stringstream test (data);
+    std::stringstream test(data);
     auto inCS = ctx.CalculateChecksum(test);
     ASSERT_EQ(decryptedCS, inCS);
 }
 
 TEST_F(CtxTestGroup, ChecksumDifferentInputs) {
     std::string data = "data";
-    std::stringstream in (data);
+    std::stringstream in(data);
 
     auto cs_1 = ctx.CalculateChecksum(in);
     ASSERT_TRUE(cs_1.size() > 0);
@@ -165,7 +165,7 @@ TEST_F(CtxTestGroup, ChecksumDifferentInputs) {
 
 TEST_F(CtxTestGroup, ChecksumEmptyInput) {
     std::string data = "";
-    std::stringstream in (data);
+    std::stringstream in(data);
 
     auto cs_1 = ctx.CalculateChecksum(in);
     ASSERT_TRUE(cs_1.size() > 0);

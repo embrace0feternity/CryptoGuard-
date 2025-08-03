@@ -9,8 +9,8 @@ namespace po = boost::program_options;
 /// input
 /// output
 /// password
-ProgramOptions::ProgramOptions() : command_(COMMAND_TYPE::INDEFINITE), inputFile_(""), outputFile_(""), password_(""), 
-desc_("Allowed options") {
+ProgramOptions::ProgramOptions()
+    : command_(COMMAND_TYPE::INDEFINITE), inputFile_(""), outputFile_(""), password_(""), desc_("Allowed options") {
     desc_.add_options()("help", "show help message")("command,c", po::value<std::string>(),
                                                      "perform an action:\n"
                                                      "    encrypt\n"
@@ -19,7 +19,7 @@ desc_("Allowed options") {
                                                                        "input file path")(
         "output,o", po::value<std::string>(), "output file path")("password,p", po::value<std::string>(),
                                                                   "password for encrypting and decrypting");
-                                                                  }
+}
 
 void ProgramOptions::Parse(int argc, char *argv[]) {
     po::variables_map vm;
@@ -29,8 +29,7 @@ void ProgramOptions::Parse(int argc, char *argv[]) {
     if (vm.count("help")) {
         command_ = COMMAND_TYPE::HELP;
         std::cout << desc_ << std::endl;
-    }
-    else {
+    } else {
         if (vm.count("command")) {
             auto it = commandMapping_.find(vm["command"].as<std::string>());
             if (it == commandMapping_.end()) {

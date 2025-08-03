@@ -5,7 +5,6 @@
 #include <sstream>
 #include <vector>
 
-
 namespace CryptoGuard {
 
 namespace detail {
