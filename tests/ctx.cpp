@@ -22,6 +22,7 @@ TEST_F(CtxTestGroup, EncryptDecrypt) {
 
     ASSERT_NO_THROW({ ctx.DecryptFile(encrypted, decrypted, password); });
     std::string decryptedData = decrypted.str();
+    std::cout << "decrypted " << decryptedData << std::endl;
     ASSERT_EQ(data, decryptedData);
 }
 
@@ -120,4 +121,45 @@ TEST_F(CtxTestGroup, DecryptChoppedData) {
     encrypted << encryptedData;
 
     ASSERT_THROW({ ctx.DecryptFile(encrypted, decrypted, password); }, std::runtime_error);
+}
+
+///
+///
+///
+
+TEST_F(CtxTestGroup, Checksum) {
+    std::string data = "data";
+    std::stringstream in (data);
+
+    ASSERT_NO_THROW({ ctx.CalculateChecksum(in); });
+    auto cs = ctx.CalculateChecksum(in);
+    ASSERT_TRUE(cs.size() > 0);
+}
+
+TEST_F(CtxTestGroup, ChecksumDifferentInputs) {
+    std::string data = "data";
+    std::stringstream in (data);
+
+    auto cs_1 = ctx.CalculateChecksum(in);
+    ASSERT_TRUE(cs_1.size() > 0);
+
+    data.back() = 'A';
+    in.clear();
+    in << data;
+
+    auto cs_2 = ctx.CalculateChecksum(in);
+    ASSERT_TRUE(cs_2.size() > 0);
+    ASSERT_FALSE(cs_2 == cs_1);
+}
+
+TEST_F(CtxTestGroup, ChecksumEmptyInput) {
+    std::string data = "";
+    std::stringstream in (data);
+
+    auto cs_1 = ctx.CalculateChecksum(in);
+    ASSERT_TRUE(cs_1.size() > 0);
+
+    auto cs_2 = ctx.CalculateChecksum(in);
+    ASSERT_TRUE(cs_2.size() > 0);
+    ASSERT_TRUE(cs_2 == cs_1);
 }
