@@ -1,8 +1,8 @@
 {
   "name": "Ubuntu25.04 with GCC15",
   "build": {
-      "dockerfile": "./Dockerfile",
-      "context": "."
+    "dockerfile": "./Dockerfile",
+    "context": "."
   },
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "customizations": {
@@ -16,6 +16,6 @@
     }
   },
   "mounts": [
-    "source=${env:HOME}/.gitconfig,target=/etc/gitconfig,type=bind,consistency=cached"
+    "source=conan_cache,target=/home/dev/.conan2,type=volume"
   ]
 }

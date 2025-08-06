@@ -17,8 +17,9 @@
             ],
             "cwd": "${workspaceFolder}/build",
             "preLaunchTask": "GCC: Build Debug app",
-            "initCommands": ["settings set target.disable-aslr false"]
+            "initCommands": [
+                "settings set target.disable-aslr false"
+            ]
         }
-
     ]
 }

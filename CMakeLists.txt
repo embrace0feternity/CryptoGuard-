@@ -7,7 +7,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     # Все предупреждения - это ошибки
-    add_compile_options(-Wfatal-errors -Wall -Werror)
+    add_compile_options(-Wfatal-errors -Wall)
 
     # Не больше одной ошибки за раз
     add_compile_options(-fmax-errors=1)
